@@ -53,6 +53,12 @@ public class BoardView extends JPanel implements ChangeListener
 		//Sets mancala color to whatever styler calls for
 		player1Mancala.setBackground(styler.getPieceColor());
 		player2Mancala.setBackground(styler.getPieceColor());
+		
+		player1Mancala.setLabelText("A1");
+		player2Mancala.setLabelText("B1");
+		
+		player1Mancala.setLabelColor(styler.getLabelColor());
+		player2Mancala.setLabelColor(styler.getLabelColor());
 	}
 
 	@Override
