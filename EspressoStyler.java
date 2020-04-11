@@ -10,13 +10,13 @@ import java.awt.geom.RoundRectangle2D;
 import javax.swing.JComponent;
 
 public class EspressoStyler extends BoardStyler
-{
-	
+{	
 	public EspressoStyler() 
 	{	
 		this.setOutlineWidth(8);
 		this.setBoardColor(new Color(95,72,50));
 		this.setPieceColor(new Color(103,92,74)); 
+		this.setLabelColor(Color.green);
 	}
 
 	@Override
@@ -39,5 +39,5 @@ public class EspressoStyler extends BoardStyler
 		this.setPlayer2MancalaShape(new RoundRectangle2D.Double(this.getParentContainer().getSize().getWidth()*.85, this.getParentContainer().getSize().getHeight()*.35, this.getParentContainer().getSize().getWidth()*.1, this.getParentContainer().getSize().getHeight()*.60,3,3));
 		return super.getPlayer2Mancala();
 	}
-	
 }
+
