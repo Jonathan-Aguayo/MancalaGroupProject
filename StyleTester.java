@@ -1,4 +1,3 @@
-package View;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,7 +12,6 @@ import Model.MancalaModel;
 
 public class StyleTester 
 {
-
 	public static void main(String[] args)
 	{
 		JFrame f = new JFrame();
@@ -21,7 +19,7 @@ public class StyleTester
 		
 		MancalaModel m = new MancalaModel();
 		BoardView b = new BoardView(m);
-		b.setBoardStyle(new EspressoStyler());
+		b.setBoardStyle(new DarkStyler());
 		
 		f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
 		f.add(b);
