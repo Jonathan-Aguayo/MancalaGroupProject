@@ -33,7 +33,7 @@ public class MancalaPit extends JPanel
 	{
 		return mancalaShape;
 	}
-	
+
 	public void setLabelColor(Color c)
 	{
 		label.setForeground(c);
@@ -43,7 +43,7 @@ public class MancalaPit extends JPanel
 	{
 		label.setText(labelText);
 	}
-	
+
 	public void setShape(Shape s)
 	{
 		mancalaShape = s;
