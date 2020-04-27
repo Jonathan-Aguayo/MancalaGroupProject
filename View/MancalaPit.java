@@ -1,4 +1,4 @@
-package View;
+package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -10,51 +10,45 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class MancalaPit extends JPanel
-{
+public class MancalaPit extends JPanel {
 	private Shape mancalaShape;
 	private JLabel label;
-	public MancalaPit()
-	{
+
+	public MancalaPit() {
 		label = new JLabel();
 		this.add(label);
 	}
 
-	public MancalaPit(Shape shape, String labelText)
-	{
+	public MancalaPit(Shape shape, String labelText) {
 		mancalaShape = shape;
 		this.setBounds(mancalaShape.getBounds());
-		this.setPreferredSize(new Dimension((int)shape.getBounds().getWidth(),(int)shape.getBounds().getHeight()));
-		label = new JLabel (labelText);
+		this.setPreferredSize(new Dimension((int) shape.getBounds().getWidth(), (int) shape.getBounds().getHeight()));
+		label = new JLabel(labelText);
 		this.add(label);
 	}
 
-	public Shape getShape()
-	{
+	public Shape getShape() {
 		return mancalaShape;
 	}
 
-	public void setLabelColor(Color c)
-	{
+	public void setLabelColor(Color c) {
 		label.setForeground(c);
 	}
 
-	public void setLabelText(String labelText)
-	{
+	public void setLabelText(String labelText) {
 		label.setText(labelText);
 	}
 
-	public void setShape(Shape s)
-	{
+	public void setShape(Shape s) {
 		mancalaShape = s;
 		this.setBounds(mancalaShape.getBounds());
-		this.setPreferredSize(new Dimension((int)mancalaShape.getBounds().getWidth(),(int)mancalaShape.getBounds().getHeight()));
+		this.setPreferredSize(
+				new Dimension((int) mancalaShape.getBounds().getWidth(), (int) mancalaShape.getBounds().getHeight()));
 	}
 
 	@Override
-	public Dimension getPreferredSize()
-	{
-		return new Dimension((int)mancalaShape.getBounds().getHeight(), (int) mancalaShape.getBounds().getWidth());
+	public Dimension getPreferredSize() {
+		return new Dimension((int) mancalaShape.getBounds().getHeight(), (int) mancalaShape.getBounds().getWidth());
 
 	}
 

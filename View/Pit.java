@@ -1,4 +1,4 @@
-package View;
+package view;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -13,51 +13,45 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Pit extends JPanel
-{
+public class Pit extends JPanel {
 	private Shape pitShape;
 	private JLabel label;
-	
-	public Pit(Shape s, String labelText)
-	{
+
+	public Pit(Shape s, String labelText) {
 		pitShape = s;
-		label = new JLabel (labelText);
+		label = new JLabel(labelText);
 		this.setBounds(pitShape.getBounds());
-		this.setPreferredSize(new Dimension((int)pitShape.getBounds().getWidth(),(int)pitShape.getBounds().getHeight()));
+		this.setPreferredSize(
+				new Dimension((int) pitShape.getBounds().getWidth(), (int) pitShape.getBounds().getHeight()));
 		this.add(label);
 	}
-	
-	public Pit()
-	{
+
+	public Pit() {
 		label = new JLabel();
 		this.add(label);
 	}
-	
-	public void setShape(Shape stylerShape)
-	{
+
+	public void setShape(Shape stylerShape) {
 		pitShape = stylerShape;
 		this.setBounds(pitShape.getBounds());
-		this.setPreferredSize(new Dimension((int)pitShape.getBounds().getWidth(),(int)pitShape.getBounds().getHeight()));
+		this.setPreferredSize(
+				new Dimension((int) pitShape.getBounds().getWidth(), (int) pitShape.getBounds().getHeight()));
 	}
-	
-	public void setLabelColor(Color c)
-	{
+
+	public void setLabelColor(Color c) {
 		label.setForeground(c);
 	}
 
-	public void setLabelText(String labelText)
-	{
+	public void setLabelText(String labelText) {
 		label.setText(labelText);
 	}
-	
-	public Shape getShape()
-	{
+
+	public Shape getShape() {
 		return this.pitShape;
 	}
-	
+
 	@Override
-	public Dimension getPreferredSize()
-	{
-		return new Dimension((int)pitShape.getBounds().getHeight(), (int)pitShape.getBounds().getWidth());
+	public Dimension getPreferredSize() {
+		return new Dimension((int) pitShape.getBounds().getHeight(), (int) pitShape.getBounds().getWidth());
 	}
 }

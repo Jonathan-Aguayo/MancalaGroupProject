@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
