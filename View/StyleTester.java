@@ -1,4 +1,4 @@
-package View;
+package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 
-import Model.MancalaModel;
+import model.MancalaModel;
 
 public class StyleTester {
 	public static void main(String[] args) {
@@ -18,10 +18,12 @@ public class StyleTester {
 
 		MancalaModel m = new MancalaModel();
 		BoardView b = new BoardView(m);
-		b.setBoardStyle(new DarkStyler());
+		// b.setBoardStyle(new DarkStyler());
+		b.setBoardStyle(new EspressoStyler());
+		f.add(b);
 
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.add(b);
+		f.setLocationRelativeTo(null);
 		f.setVisible(true);
 	}
 }

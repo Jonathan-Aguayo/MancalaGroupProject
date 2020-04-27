@@ -1,4 +1,4 @@
-package View;
+package view;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import Model.MancalaModel;
+import model.MancalaModel;
 
 public class BoardView extends JPanel implements ChangeListener {
 	private MancalaModel model;
