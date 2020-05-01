@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
@@ -70,26 +71,17 @@ public class BoardView extends JPanel implements ChangeListener {
 	}
 
 	public void drawPitPositions(Graphics2D g2) {
+		int[] stones = model.getP1Pits();
+		Shape pitShape = pits[1].getShape();
 		for (int i = 0; i < 6; i++) {
 			g2.draw(pits[i].getShape());
-			ArrayList<Shape> stones = pits[i].getStone(model.getP1Pits()[i]);
-			for(Shape s: stones)
-			{
-				g2.setColor(Color.BLACK);
-				g2.fill(s);
-				g2.draw(s);
-			}
+			paintStoneCount(g2, stones[i], pitShape);
 		}
 
+		stones = model.getP2Pits();
 		for (int i = 6; i < 12; i++) {
 			g2.draw(pits[i].getShape());
-			ArrayList<Shape> stones = pits[i].getStone(model.getP1Pits()[i-6]);
-			for(Shape s: stones)
-			{
-				g2.setColor(Color.BLACK);
-				g2.fill(s);
-				g2.draw(s);
-			}
+			paintStoneCount(g2, stones[i - 6], pitShape);
 		}
 
 	}
@@ -109,6 +101,99 @@ public class BoardView extends JPanel implements ChangeListener {
 		g2.draw(player1Mancala.getShape());
 		g2.draw(player2Mancala.getShape());
 		this.drawPitPositions(g2);
+	}
+	public void paintStoneCount(Graphics2D g2, int numOfStones, Shape pitShape)
+	{
+		int size = 5;
+/*		ArrayList<Shape> stones = new ArrayList<>();
+		if (numOfStones == 1)
+		{
+			Ellipse2D.Double stone1 = new Ellipse2D.Double(pitShape.getBounds().getCenterX(),
+					pitShape.getBounds().getCenterY(), size,size);
+			stones.add(stone1);
+		}
+		if (numOfStones == 2)
+		{
+			Ellipse2D.Double stone1 = new Ellipse2D.Double(pitShape.getBounds().getCenterX() +25,
+					pitShape.getBounds().getCenterY(), size,size);
+			Ellipse2D.Double stone2 = new Ellipse2D.Double(pitShape.getBounds().getCenterX() -25,
+					pitShape.getBounds().getCenterY(), size,size);
+			stones.add(stone1);
+			stones.add(stone2);
+		}
+		if (numOfStones == 3)
+		{
+			Ellipse2D.Double stone1 = new Ellipse2D.Double(pitShape.getBounds().getCenterX() +25,
+					pitShape.getBounds().getCenterY(), size,size);
+			Ellipse2D.Double stone2 = new Ellipse2D.Double(pitShape.getBounds().getCenterX() -25,
+					pitShape.getBounds().getCenterY(), size,size);
+			Ellipse2D.Double stone3 = new Ellipse2D.Double(pitShape.getBounds().getCenterX(),
+					pitShape.getBounds().getCenterY() +25, size,size);
+			stones.add(stone1);
+			stones.add(stone2);
+			stones.add(stone3);
+		}
+		if (numOfStones == 4)
+		{
+			Ellipse2D.Double stone1 = new Ellipse2D.Double(pitShape.getBounds().getCenterX() -25,
+					pitShape.getBounds().getCenterY() +25, size,size);
+			Ellipse2D.Double stone2 = new Ellipse2D.Double(pitShape.getBounds().getCenterX() +25,
+					pitShape.getBounds().getCenterY() +25, size,size);
+			Ellipse2D.Double stone3 = new Ellipse2D.Double(pitShape.getBounds().getCenterX() -25,
+					pitShape.getBounds().getCenterY() -25, size,size);
+			Ellipse2D.Double stone4 = new Ellipse2D.Double(pitShape.getBounds().getCenterX() +25,
+					pitShape.getBounds().getCenterY() -25, size,size);
+			stones.add(stone1);
+			stones.add(stone2);
+			stones.add(stone3);
+			stones.add(stone4);
+			if (numOfStones > 4)
+			{
+				Ellipse2D.Double stone5 = new Ellipse2D.Double(pitShape.getBounds().getCenterX(),
+						pitShape.getBounds().getCenterY(), size,size);
+				stones.add(stone5);
+			}
+		}*/
+		g2.setColor(Color.BLACK);
+		if (numOfStones == 1)
+		{
+			g2.fillOval((int) pitShape.getBounds().getCenterX(),
+					(int) pitShape.getBounds().getCenterY(), size,size);
+
+		}
+		if (numOfStones == 2)
+		{
+			g2.fillOval((int) pitShape.getBounds().getCenterX() +25,
+					(int) pitShape.getBounds().getCenterY(), size,size);
+			g2.fillOval((int) pitShape.getBounds().getCenterX() -25,
+					(int) pitShape.getBounds().getCenterY(), size,size);
+		}
+		if (numOfStones == 3)
+		{
+			g2.fillOval((int) pitShape.getBounds().getCenterX() +25,
+					(int) pitShape.getBounds().getCenterY(), size,size);
+			g2.fillOval((int) pitShape.getBounds().getCenterX() -25,
+					(int) pitShape.getBounds().getCenterY(), size,size);
+			g2.fillOval((int) pitShape.getBounds().getCenterX(),
+					(int) pitShape.getBounds().getCenterY() +25, size,size);
+		}
+		if (numOfStones == 4)
+		{
+			g2.fillOval((int) pitShape.getBounds().getCenterX() -25,
+					(int)pitShape.getBounds().getCenterY() +25, size,size);
+			g2.fillOval((int) pitShape.getBounds().getCenterX() +25,
+					(int) pitShape.getBounds().getCenterY() +25, size,size);
+			g2.fillOval((int) pitShape.getBounds().getCenterX() -25,
+					(int) pitShape.getBounds().getCenterY() -25, size,size);
+			g2.fillOval((int) pitShape.getBounds().getCenterX() +25,
+					(int) pitShape.getBounds().getCenterY() -25, size,size);
+
+			if (numOfStones > 4)
+			{
+				g2.fillOval((int) pitShape.getBounds().getCenterX(),
+						(int) pitShape.getBounds().getCenterY(), size,size);
+			}
+		}
 	}
 
 	@Override
