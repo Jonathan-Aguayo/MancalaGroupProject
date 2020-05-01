@@ -15,6 +15,7 @@ import model.MancalaModel;
 import view.StyleButton;
 
 public class ResultPanel extends JPanel implements ChangeListener {
+    private static final long serialVersionUID = 1L;
 
     private MancalaModel model;
     private JLabel mancalaA;

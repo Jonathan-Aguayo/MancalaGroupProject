@@ -5,6 +5,8 @@ import java.awt.geom.Ellipse2D;
 import javax.swing.*;
 
 public class Stone extends JComponent {
+    private static final long serialVersionUID = 1L;
+
     private int x;
     private int y;
     private int width;

@@ -14,6 +14,7 @@ import javax.swing.event.ChangeListener;
 import view.StyleButton;
 
 public class QuitPanel extends JPanel implements ChangeListener {
+    private static final long serialVersionUID = 1L;
 
     private JLabel label;
     private StyleButton confirm;

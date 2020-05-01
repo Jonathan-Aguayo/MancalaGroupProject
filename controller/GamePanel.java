@@ -15,6 +15,7 @@ import view.BoardView;
 import view.StyleButton;
 
 public class GamePanel extends JPanel implements ChangeListener {
+    private static final long serialVersionUID = 1L;
 
     private MancalaModel model;
     private BoardView board;

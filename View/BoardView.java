@@ -10,6 +10,8 @@ import javax.swing.event.ChangeListener;
 import model.MancalaModel;
 
 public class BoardView extends JPanel implements ChangeListener {
+	private static final long serialVersionUID = 1L;
+
 	private MancalaModel model;
 	private BoardStyler currentStyle;
 	private MancalaPit player1Mancala;

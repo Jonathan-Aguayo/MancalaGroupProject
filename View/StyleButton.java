@@ -10,6 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class StyleButton extends JButton {
+    private static final long serialVersionUID = 1L;
 
     private boolean mouseOver = false;
     private boolean mousePressed = false;
