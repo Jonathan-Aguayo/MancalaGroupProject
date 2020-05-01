@@ -4,29 +4,82 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.util.ArrayList;
 
+import view.*;
+
 /**
  * A class implements a mancala model
  */
 public class MancalaModel {
 
-    final static int MIN_INIT_STONES = 3; // Mininum number of stones in each initialize pit
-    final static int MAX_INIT_STONES = 4; // Maxinum number of stones in each initialize pit
-    final static int NUMBER_OF_PITS = 6; // Number of pits for each player (Mancala store not included)
+    public final int MIN_INIT_STONES = 3; // Mininum number of stones in each initialize pit
+    public final int MAX_INIT_STONES = 4; // Maxinum number of stones in each initialize pit
+    public final int NUMBER_OF_PITS = 6; // Number of pits for each player (Mancala store not included)
 
-    private int[] p1_Pits; // Player1's pits
-    private int[] p2_Pits; // Player2's pits
+    // Last position represents mancala store of each player
+    private int[] p1_Pits = new int[NUMBER_OF_PITS + 1]; // Player1's pits
+    private int[] p2_Pits = new int[NUMBER_OF_PITS + 1]; // Player2's pits
+
     private boolean isP1Turn; // Flag determines which player takes turn
     private int turnCount; // Number of turn left of a player
     private int redoCount; // Number of redo left in each turn
     private SaveState prevState; // Previous state of model during game
 
+    private int initStoneAmount;
+    private int currentStyleIndex;
+    private ArrayList<BoardStyler> styles;
     private ArrayList<ChangeListener> listeners; // List of ChangeListener in this mancala model
 
     /**
      * Construct a mancala model
      */
     public MancalaModel() {
+        initStoneAmount = MIN_INIT_STONES;
         listeners = new ArrayList<>();
+        styles = new ArrayList<>();
+        currentStyleIndex = styles.size();
+    }
+
+    public void setStoneAmount(int n) {
+        if (n < MIN_INIT_STONES) {
+            initStoneAmount = MIN_INIT_STONES;
+        } else if (n > MAX_INIT_STONES) {
+            initStoneAmount = MAX_INIT_STONES;
+        } else {
+            initStoneAmount = n;
+        }
+        update();
+    }
+
+    public int getStoneAmount() {
+        return initStoneAmount;
+    }
+
+    public void addStyle(BoardStyler style) {
+        styles.add(style);
+    }
+
+    public BoardStyler getCurrentStyle() {
+        try {
+            return (BoardStyler) styles.get(currentStyleIndex).clone();
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
+    }
+
+    public void previousStyle() {
+        int newIndex = currentStyleIndex - 1;
+        currentStyleIndex = newIndex < 0 ? styles.size() - 1 : newIndex;
+        update();
+    }
+
+    public void nextStyle() {
+        int newIndex = currentStyleIndex + 1;
+        currentStyleIndex = newIndex > styles.size() - 1 ? 0 : newIndex;
+        update();
+    }
+
+    public ArrayList<BoardStyler> getStyleList() {
+        return (ArrayList<BoardStyler>) styles.clone();
     }
 
     /**
@@ -49,30 +102,19 @@ public class MancalaModel {
 
     /**
      * Initialize a new mancala match. Player1 takes first turn
-     * 
-     * @param stoneAmount
      */
-    public void newGame(int stoneAmount) {
-        // Set stoneAmount bounded to MIN and MAX
-        if (stoneAmount < MIN_INIT_STONES) {
-            stoneAmount = MIN_INIT_STONES;
-        } else if (stoneAmount > MAX_INIT_STONES) {
-            stoneAmount = MAX_INIT_STONES;
-        }
-
-        // Last position represents mancala store of each player
-        p1_Pits = new int[NUMBER_OF_PITS + 1];
-        p2_Pits = new int[NUMBER_OF_PITS + 1];
+    public void newGame() {
 
         // Initialize every pits to stoneAmount
         for (int i = 0; i < NUMBER_OF_PITS; i++) {
-            p1_Pits[i] = stoneAmount;
-            p2_Pits[i] = stoneAmount;
+            p1_Pits[i] = initStoneAmount;
+            p2_Pits[i] = initStoneAmount;
         }
         isP1Turn = true;
         turnCount = 1;
         redoCount = 3;
         prevState = null;
+        update();
     }
 
     /**
@@ -167,7 +209,7 @@ public class MancalaModel {
     }
 
     /**
-     * Restore macala match to previous state
+     * Restore mancala match to previous state
      */
     public void redo() {
         // Ensures that previous state is valid and player still can redo
@@ -223,43 +265,23 @@ public class MancalaModel {
     }
 
     /**
-     * @return Winner. (Will be modified to match with GUI)
+     * @return Winner
      */
     public String getResult() {
-        if (!hasEmptyPits()) {
-            return "Not Finish";
-        }
         for (int i = 0; i < NUMBER_OF_PITS; i++) {
             p1_Pits[NUMBER_OF_PITS] += p1_Pits[i];
             p2_Pits[NUMBER_OF_PITS] += p2_Pits[i];
             p1_Pits[i] = p2_Pits[i] = 0;
         }
-        System.out.println(this);
         this.update();
         int result = p1_Pits[NUMBER_OF_PITS] - p2_Pits[NUMBER_OF_PITS];
         if (result > 0) {
-            return "Player1 Win";
+            return "Player1 WIN";
         }
         if (result < 0) {
-            return "Player2 Win";
+            return "Player2 WIN";
         }
-        return "Draw";
-    }
-
-    /**
-     * @return String repesentation of mancala match's current state. (Will be
-     *         remove after GUI is done)
-     */
-    public String toString() {
-        String s = "   | ";
-        for (int i = NUMBER_OF_PITS - 1; i >= 0; i--) {
-            s += p2_Pits[i] + " ";
-        }
-        s += String.format("|\n%2d | a b c d e f | %-2d\n   | ", p2_Pits[NUMBER_OF_PITS], p1_Pits[NUMBER_OF_PITS]);
-        for (int i = 0; i < NUMBER_OF_PITS; i++) {
-            s += p1_Pits[i] + " ";
-        }
-        return s + "|";
+        return "Draw!";
     }
 
     /**
