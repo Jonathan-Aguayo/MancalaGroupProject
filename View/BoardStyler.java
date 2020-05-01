@@ -12,7 +12,7 @@ import java.awt.Shape;
  * @author Jonathan Aguayo
  *
  */
-public abstract class BoardStyler {
+public abstract class BoardStyler implements Cloneable {
 	private Shape player1Mancala;
 	private Shape player2Mancala;
 	protected Shape[] player1Pits;
@@ -42,6 +42,8 @@ public abstract class BoardStyler {
 	void setPlayer2MancalaShape(Shape s) {
 		player2Mancala = s;
 	}
+
+	public abstract String getStyleName();
 
 	abstract void setPlayer2Pits();
 
@@ -169,6 +171,10 @@ public abstract class BoardStyler {
 	 */
 	int getOutLineWidth() {
 		return outlineWidth;
+	}
+
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
 	}
 
 }

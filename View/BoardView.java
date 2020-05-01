@@ -1,16 +1,8 @@
 package view;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Shape;
-import java.util.ArrayList;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import java.awt.BasicStroke;
 import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -24,9 +16,9 @@ public class BoardView extends JPanel implements ChangeListener {
 	private MancalaPit player2Mancala;
 	private Pit[] pits;
 
-	public BoardView(MancalaModel model) {
+	public BoardView(MancalaModel m) {
 		// this.setPreferredSize(new Dimension(250, 250));
-		this.model = model;
+		this.model = m;
 		this.setLayout(null);
 		this.player1Mancala = new MancalaPit();
 		this.player2Mancala = new MancalaPit();
@@ -34,6 +26,11 @@ public class BoardView extends JPanel implements ChangeListener {
 		for (int i = 0; i < 12; i++) {
 			pits[i] = new Pit();
 			this.add(pits[i]);
+		}
+		if (!model.getStyleList().isEmpty()) {
+			setBoardStyle(model.getCurrentStyle());
+		} else {
+			setBoardStyle(new EspressoStyler());
 		}
 	}
 
@@ -110,7 +107,6 @@ public class BoardView extends JPanel implements ChangeListener {
 
 	@Override
 	public void stateChanged(ChangeEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 }

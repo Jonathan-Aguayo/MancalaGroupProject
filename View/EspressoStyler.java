@@ -1,16 +1,13 @@
 package view;
 
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Shape;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D.Double;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 
-import javax.swing.JComponent;
-
 public class EspressoStyler extends BoardStyler {
+
+	final static String NAME = "Espresso";
 
 	public EspressoStyler() {
 		this.setOutlineWidth(8);
@@ -61,4 +58,7 @@ public class EspressoStyler extends BoardStyler {
 		return super.getPlayer2Mancala();
 	}
 
+	public String getStyleName() {
+		return NAME;
+	}
 }

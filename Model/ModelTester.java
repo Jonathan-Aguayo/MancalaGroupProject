@@ -6,7 +6,8 @@ public class ModelTester {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         MancalaModel mancala = new MancalaModel();
-        mancala.newGame(3);
+        mancala.setStoneAmount(3);
+        mancala.newGame();
         do {
             System.out.println(mancala);
             System.out.println("Turn: " + mancala.getTurnCount() + " - Redo: " + mancala.getRedoCount());

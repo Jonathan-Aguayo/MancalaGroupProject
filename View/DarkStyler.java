@@ -2,11 +2,12 @@ package view;
 
 import java.awt.Color;
 import java.awt.Shape;
-import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 
 public class DarkStyler extends BoardStyler {
+
+	final static String NAME = "Dark";
 
 	public DarkStyler() {
 		this.setOutlineWidth(8);
@@ -57,4 +58,7 @@ public class DarkStyler extends BoardStyler {
 		}
 	}
 
+	public String getStyleName() {
+		return NAME;
+	}
 }
