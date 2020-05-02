@@ -93,6 +93,8 @@ public class BoardView extends JPanel implements ChangeListener {
 			pits[i].setShape(currentStyle.getPlayer1Pits()[i]);
 			pits[i].setBackground(currentStyle.getPieceColor());
 			pits[i].setStyleColor(currentStyle.getPieceColor());
+			pits[i].setLabelFont(currentStyle.getParentContainer().getWidth(),
+					currentStyle.getParentContainer().getHeight());
 		}
 		for (int i = 6; i < 12; i++) {
 			pits[i].setLabelText("A" + (i - 5));
@@ -100,6 +102,8 @@ public class BoardView extends JPanel implements ChangeListener {
 			pits[i].setShape(currentStyle.getPlayer2Pits()[i - 6]);
 			pits[i].setBackground(currentStyle.getPieceColor());
 			pits[i].setStyleColor(currentStyle.getPieceColor());
+			pits[i].setLabelFont(currentStyle.getParentContainer().getWidth(),
+					currentStyle.getParentContainer().getHeight());
 		}
 	}
 
@@ -119,9 +123,13 @@ public class BoardView extends JPanel implements ChangeListener {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 
-		// Gets the most recent information about Boards shape
+		// Gets the most recent information about Boards shape and size
 		this.player1Mancala.setShape(currentStyle.getPlayer1Mancala());
+		this.player1Mancala.setLabelFont(currentStyle.getParentContainer().getWidth(),
+				currentStyle.getParentContainer().getHeight());
 		this.player2Mancala.setShape(currentStyle.getPlayer2Mancala());
+		this.player2Mancala.setLabelFont(currentStyle.getParentContainer().getWidth(),
+				currentStyle.getParentContainer().getHeight());
 		// Sets the outline thickness to whatever the styler calls for
 		g2.setStroke(new BasicStroke(currentStyle.getOutLineWidth()));
 

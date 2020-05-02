@@ -3,6 +3,7 @@ package view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Shape;
+import java.awt.Font;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
@@ -59,6 +60,13 @@ public class Pit extends JPanel {
 	public void setLabelColor(Color c) {
 		pitLabel.setForeground(c);
 		remainStoneLabel.setForeground(c);
+	}
+
+	public void setLabelFont(int w, int h) {
+		int fontSize = Math.min(w, h);
+		Font newFont = new Font("Serif", Font.PLAIN, (int) (fontSize * 0.04));
+		pitLabel.setFont(newFont);
+		remainStoneLabel.setFont(newFont);
 	}
 
 	public void setLabelText(String labelText) {

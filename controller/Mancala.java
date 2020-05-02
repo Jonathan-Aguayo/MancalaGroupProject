@@ -16,32 +16,33 @@ public class Mancala extends JFrame {
     private static final long serialVersionUID = 1L;
 
     public Mancala() {
-        this.getContentPane().setBackground(new Color(255, 230, 204));
-        this.setMinimumSize(new Dimension(850, 600));
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Mancala");
+        getContentPane().setBackground(new Color(255, 230, 204));
+        setMinimumSize(new Dimension(850, 600));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         CardLayout card = new CardLayout();
-        this.setLayout(card);
+        setLayout(card);
 
         MancalaModel model = new MancalaModel();
         model.addStyle(new EspressoStyler());
         model.addStyle(new DarkStyler());
 
-        MainPanel menuPanel = new MainPanel(this.getContentPane(), card);
-        SetUpPanel setUpPanel = new SetUpPanel(this.getContentPane(), card, model);
-        GamePanel gamePanel = new GamePanel(this.getContentPane(), card, model);
-        QuitPanel quitPanel = new QuitPanel(this.getContentPane(), card, model);
-        ResultPanel resultPanel = new ResultPanel(this.getContentPane(), card, model);
+        MainPanel menuPanel = new MainPanel(getContentPane(), card);
+        SetUpPanel setUpPanel = new SetUpPanel(getContentPane(), card, model);
+        GamePanel gamePanel = new GamePanel(getContentPane(), card, model);
+        QuitPanel quitPanel = new QuitPanel(getContentPane(), card, model);
+        ResultPanel resultPanel = new ResultPanel(getContentPane(), card, model);
         model.addChangeListener(setUpPanel);
         model.addChangeListener(gamePanel);
         model.addChangeListener(resultPanel);
 
-        this.add(PanelName.MENU.getName(), menuPanel);
-        this.add(PanelName.SETUP.getName(), setUpPanel);
-        this.add(PanelName.GAME.getName(), gamePanel);
-        this.add(PanelName.QUIT.getName(), quitPanel);
-        this.add(PanelName.RESULT.getName(), resultPanel);
-        this.addComponentListener(new ComponentAdapter() {
+        add(PanelName.MENU.getName(), menuPanel);
+        add(PanelName.SETUP.getName(), setUpPanel);
+        add(PanelName.GAME.getName(), gamePanel);
+        add(PanelName.QUIT.getName(), quitPanel);
+        add(PanelName.RESULT.getName(), resultPanel);
+        addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent e) {
                 menuPanel.stateChanged(new ChangeEvent(this));
                 setUpPanel.stateChanged(new ChangeEvent(this));
@@ -50,7 +51,7 @@ public class Mancala extends JFrame {
                 resultPanel.stateChanged(new ChangeEvent(this));
             }
         });
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 }

@@ -3,6 +3,7 @@ package view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Shape;
+import java.awt.Font;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
@@ -51,6 +52,14 @@ public class MancalaPit extends JPanel {
 		mancalaLabel.setForeground(c);
 		remainStoneLabel.setForeground(c);
 		totalLabel.setForeground(c);
+	}
+
+	public void setLabelFont(int w, int h) {
+		int fontSize = Math.min(w, h);
+		Font newFont = new Font("Serif", Font.PLAIN, (int) (fontSize * 0.04));
+		mancalaLabel.setFont(newFont);
+		remainStoneLabel.setFont(newFont);
+		totalLabel.setFont(newFont);
 	}
 
 	public void setLabelText(String labelText) {
