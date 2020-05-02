@@ -114,7 +114,15 @@ public class Pit extends JPanel {
 		@Override
 		public void mousePressed(MouseEvent e) {
 			if (enable) {
+				setBackground(styleBackground);
 				model.toMove(pitIndex);
+			}
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			if (enable) {
+				setBackground(new Color(191, 191, 191));
 			}
 		}
 
@@ -123,13 +131,11 @@ public class Pit extends JPanel {
 			if (enable) {
 				setBackground(new Color(191, 191, 191));
 			}
-			repaint();
 		}
 
 		@Override
 		public void mouseExited(MouseEvent e) {
 			setBackground(styleBackground);
-			repaint();
 		}
 	}
 

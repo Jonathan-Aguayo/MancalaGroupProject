@@ -36,7 +36,7 @@ public class MancalaPit extends JPanel {
 		centerPanel.add(container, BorderLayout.CENTER);
 		centerPanel.add(remainStoneLabel, BorderLayout.SOUTH);
 
-		totalLabel = new JLabel("Total: 0");
+		totalLabel = new JLabel();
 		totalLabel.setHorizontalAlignment(JLabel.CENTER);
 
 		this.add(mancalaLabel, BorderLayout.NORTH);
@@ -81,12 +81,17 @@ public class MancalaPit extends JPanel {
 		} else {
 			remainStoneLabel.setText("");
 		}
-		int currentAmount = container.getComponentCount();
-		while (currentAmount < stoneAmount) {
-			container.add(new Stone());
-			currentAmount++;
+		int stoneIndex = 0;
+		while (stoneIndex < stoneAmount) {
+			container.add(new Stone(), stoneIndex);
+			stoneIndex++;
 		}
-		while (currentAmount > stoneAmount) {
+		while (stoneIndex < MAX_CAPACITY) {
+			container.add(new JLabel(), stoneIndex);
+			stoneIndex++;
+		}
+		int currentAmount = container.getComponentCount();
+		while (currentAmount > MAX_CAPACITY) {
 			container.remove(container.getComponentCount() - 1);
 			currentAmount--;
 		}

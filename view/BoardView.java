@@ -137,10 +137,11 @@ public class BoardView extends JPanel implements ChangeListener {
 		g2.draw(player1Mancala.getShape());
 		g2.draw(player2Mancala.getShape());
 		this.drawPitPositions(g2);
+		this.updateBoard();
 	}
 
 	@Override
 	public void stateChanged(ChangeEvent e) {
-		updateBoard();
+		this.updateBoard();
 	}
 }
