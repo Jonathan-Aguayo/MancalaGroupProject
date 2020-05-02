@@ -1,58 +1,25 @@
 package view;
 
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Color;
 import java.awt.geom.Ellipse2D;
-import javax.swing.*;
+import javax.swing.JComponent;
 
 public class Stone extends JComponent {
     private static final long serialVersionUID = 1L;
 
-    private int x;
-    private int y;
-    private int width;
-    private int height;
-    private Shape shape;
-
-    protected Stone(int x, int y, double diameter) {
-        this.x = x;
-        this.y = y;
-        shape = new Ellipse2D.Double(x, y, diameter, diameter);
-        this.height = (int) shape.getBounds2D().getHeight();
-        this.width = (int) shape.getBounds2D().getWidth();
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    @Override
-    public int getHeight() {
-        return height;
-    }
-
-    @Override
-    public int getWidth() {
-        return width;
+    public Stone() {
     }
 
     public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        Ellipse2D.Double shape = new Ellipse2D.Double(x, y, width, height);
+        int size = (int) (getWidth() * 0.4);
+        int x = (getWidth() - size) / 2;
+        int y = (getHeight() - size) / 2;
+        Ellipse2D.Double shape = new Ellipse2D.Double(x, y, size, size);
         g2.setColor(Color.BLACK);
         g2.fill(shape);
-        g2.setColor(Color.BLACK);
-        g2.draw(shape);
     }
 }

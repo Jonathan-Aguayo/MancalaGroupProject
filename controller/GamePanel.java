@@ -17,6 +17,8 @@ import view.StyleButton;
 public class GamePanel extends JPanel implements ChangeListener {
     private static final long serialVersionUID = 1L;
 
+    private Container container;
+    private CardLayout card;
     private MancalaModel model;
     private BoardView board;
     private JLabel turnLabel;
@@ -24,7 +26,9 @@ public class GamePanel extends JPanel implements ChangeListener {
     private StyleButton endTurn;
     private StyleButton quit;
 
-    public GamePanel(Container p, CardLayout card, MancalaModel m) {
+    public GamePanel(Container p, CardLayout c, MancalaModel m) {
+        container = p;
+        card = c;
         model = m;
 
         setLayout(new BorderLayout());
@@ -33,6 +37,7 @@ public class GamePanel extends JPanel implements ChangeListener {
         turnLabel = new JLabel();
         turnLabel.setHorizontalAlignment(JLabel.CENTER);
         board = new BoardView(model);
+        model.addChangeListener(board);
         redo = new StyleButton("");
         redo.addActionListener(e -> {
             model.redo();
@@ -54,7 +59,7 @@ public class GamePanel extends JPanel implements ChangeListener {
 
         quit = new StyleButton("Quit");
         quit.addActionListener(event -> {
-            card.show(p, PanelName.QUIT.getName());
+            card.show(container, PanelName.QUIT.getName());
         });
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         bottomPanel.setOpaque(false);
@@ -72,11 +77,14 @@ public class GamePanel extends JPanel implements ChangeListener {
         endTurn.setFont(new Font("Serif", Font.BOLD, (int) (fontSize * 0.05)));
         quit.setFont(new Font("Serif", Font.BOLD, (int) (fontSize * 0.05)));
 
-        turnLabel.setText("Player " + (model.isP1turn() ? "1" : "2") + "'s turn");
+        turnLabel.setText("Player " + (model.isP1turn() ? "A" : "B") + "'s turn");
         board.setBoardStyle(model.getCurrentStyle());
         redo.setText("Redo: " + model.getRedoCount());
         redo.setEnabled(model.getRedoCount() > 0);
         endTurn.setEnabled(!(model.getTurnCount() > 0));
+        if (!(model.getTurnCount() < 0) && model.hasEmptyPits()) {
+            card.show(container, PanelName.RESULT.getName());
+        }
     }
 
 }

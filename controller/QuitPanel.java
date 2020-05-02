@@ -11,22 +11,26 @@ import javax.swing.JLabel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import model.MancalaModel;
 import view.StyleButton;
 
 public class QuitPanel extends JPanel implements ChangeListener {
     private static final long serialVersionUID = 1L;
 
+    private MancalaModel model;
     private JLabel label;
     private StyleButton confirm;
     private StyleButton cancel;
 
-    public QuitPanel(Container p, CardLayout card) {
+    public QuitPanel(Container p, CardLayout card, MancalaModel m) {
+        model = m;
         setLayout(new GridBagLayout());
         setOpaque(false);
 
         label = new JLabel("Are you sure you want to quit?");
         confirm = new StyleButton("Yes");
         confirm.addActionListener(event -> {
+            model.discardGame();
             card.show(p, PanelName.MENU.getName());
         });
         cancel = new StyleButton("No");

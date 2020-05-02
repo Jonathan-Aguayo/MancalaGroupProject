@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import javax.swing.JFrame;
@@ -15,8 +16,9 @@ public class ControllerTester {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Test Control");
         frame.getContentPane().setBackground(new Color(255, 230, 204));
-        frame.setSize(600, 400);
+        frame.setMinimumSize(new Dimension(850, 600));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         CardLayout card = new CardLayout();
         frame.setLayout(card);
 
@@ -27,10 +29,11 @@ public class ControllerTester {
         MainPanel menuPanel = new MainPanel(frame.getContentPane(), card);
         SetUpPanel setUpPanel = new SetUpPanel(frame.getContentPane(), card, model);
         GamePanel gamePanel = new GamePanel(frame.getContentPane(), card, model);
-        QuitPanel quitPanel = new QuitPanel(frame.getContentPane(), card);
+        QuitPanel quitPanel = new QuitPanel(frame.getContentPane(), card, model);
         ResultPanel resultPanel = new ResultPanel(frame.getContentPane(), card, model);
         model.addChangeListener(setUpPanel);
         model.addChangeListener(gamePanel);
+        model.addChangeListener(resultPanel);
 
         frame.add(PanelName.MENU.getName(), menuPanel);
         frame.add(PanelName.SETUP.getName(), setUpPanel);
