@@ -292,18 +292,6 @@ public class MancalaModel {
         this.update();
     }
 
-    public void commandView() {
-        System.out.println();
-        for (int i = NUMBER_OF_PITS - 1; i >= 0; i--) {
-            System.out.print(" " + p2_Pits[i]);
-        }
-        System.out.println("\n" + p2_Pits[NUMBER_OF_PITS] + "    \t    " + p1_Pits[NUMBER_OF_PITS]);
-        for (int i = 0; i < NUMBER_OF_PITS; i++) {
-            System.out.print(" " + p1_Pits[i]);
-        }
-        System.out.println("\nTurn: " + turnCount);
-    }
-
     /**
      * A class that stores a state in a mancala match
      */
