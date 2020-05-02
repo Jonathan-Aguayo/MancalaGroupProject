@@ -63,25 +63,20 @@ public class BoardView extends JPanel implements ChangeListener {
 	private void updateBoard() {
 		boolean p1Turn = model.isP1turn();
 		int[] p2Pits = model.getP2Pits();
-		System.out.println();
 		player1Mancala.updateStoneAmount(p2Pits[model.NUMBER_OF_PITS]);
 		for (int i = 0; i < 6; i++) {
 			pits[i].setEnabled(!p1Turn);
 			pits[i].setPitIndex(5 - i);
 			pits[i].updateStoneAmount(p2Pits[5 - i]);
-			System.out.print(" " + p2Pits[5 - i]);
 		}
 
 		int[] p1Pits = model.getP1Pits();
 		player2Mancala.updateStoneAmount(p1Pits[model.NUMBER_OF_PITS]);
-		System.out.println("\n" + p2Pits[model.NUMBER_OF_PITS] + "    \t    " + p1Pits[model.NUMBER_OF_PITS]);
 		for (int i = 6; i < 12; i++) {
 			pits[i].setEnabled(p1Turn);
 			pits[i].setPitIndex(i - 6);
 			pits[i].updateStoneAmount(p1Pits[i - 6]);
-			System.out.print(" " + p1Pits[i - 6]);
 		}
-		System.out.println("\nTurn: " + model.getTurnCount());
 	}
 
 	private void updatePitPositions() {
@@ -138,6 +133,7 @@ public class BoardView extends JPanel implements ChangeListener {
 		g2.draw(player2Mancala.getShape());
 		this.drawPitPositions(g2);
 		this.updateBoard();
+		model.commandView();
 	}
 
 	@Override

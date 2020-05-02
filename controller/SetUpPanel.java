@@ -94,8 +94,7 @@ public class SetUpPanel extends JPanel implements ChangeListener {
         add(southPanel, BorderLayout.SOUTH);
     }
 
-    @Override
-    public void stateChanged(ChangeEvent e) {
+    public void resizeFont() {
         int fontSize = Math.min(getWidth(), getHeight());
         selectStoneLabel.setFont(new Font("Serif", Font.PLAIN, (int) (fontSize * 0.05)));
         stoneBox.setFont(new Font("Serif", Font.PLAIN, (int) (fontSize * 0.04)));
@@ -104,7 +103,12 @@ public class SetUpPanel extends JPanel implements ChangeListener {
         next.setFont(new Font("Serif", Font.BOLD, (int) (fontSize * 0.1)));
         back.setFont(new Font("Serif", Font.BOLD, (int) (fontSize * 0.05)));
         select.setFont(new Font("Serif", Font.BOLD, (int) (fontSize * 0.05)));
+    }
+
+    @Override
+    public void stateChanged(ChangeEvent e) {
         selectStyleLabel.setText("Style: " + model.getCurrentStyle().getStyleName());
         board.setBoardStyle(model.getCurrentStyle());
+        repaint();
     }
 }

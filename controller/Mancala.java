@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import javax.swing.JFrame;
-import javax.swing.event.ChangeEvent;
 
 import model.MancalaModel;
 import view.DarkStyler;
@@ -44,11 +43,11 @@ public class Mancala extends JFrame {
         add(PanelName.RESULT.getName(), resultPanel);
         addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent e) {
-                menuPanel.stateChanged(new ChangeEvent(this));
-                setUpPanel.stateChanged(new ChangeEvent(this));
-                gamePanel.stateChanged(new ChangeEvent(this));
-                quitPanel.stateChanged(new ChangeEvent(this));
-                resultPanel.stateChanged(new ChangeEvent(this));
+                menuPanel.resizeFont();
+                setUpPanel.resizeFont();
+                gamePanel.resizeFont();
+                quitPanel.resizeFont();
+                resultPanel.resizeFont();
             }
         });
         setLocationRelativeTo(null);
