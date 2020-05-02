@@ -10,6 +10,8 @@ import javax.swing.event.ChangeListener;
 import model.MancalaModel;
 
 public class BoardView extends JPanel implements ChangeListener {
+	private static final long serialVersionUID = 1L;
+
 	private MancalaModel model;
 	private BoardStyler currentStyle;
 	private MancalaPit player1Mancala;
@@ -17,14 +19,13 @@ public class BoardView extends JPanel implements ChangeListener {
 	private Pit[] pits;
 
 	public BoardView(MancalaModel m) {
-		// this.setPreferredSize(new Dimension(250, 250));
 		this.model = m;
 		this.setLayout(null);
 		this.player1Mancala = new MancalaPit();
 		this.player2Mancala = new MancalaPit();
 		pits = new Pit[12];
 		for (int i = 0; i < 12; i++) {
-			pits[i] = new Pit();
+			pits[i] = new Pit(model);
 			this.add(pits[i]);
 		}
 		if (!model.getStyleList().isEmpty()) {
@@ -59,25 +60,50 @@ public class BoardView extends JPanel implements ChangeListener {
 		player2Mancala.setLabelColor(styler.getLabelColor());
 	}
 
-	public void updatePitPositions() {
+	private void updateBoard() {
+		boolean p1Turn = model.isP1turn();
+		int[] p2Pits = model.getP2Pits();
+		System.out.println();
+		player1Mancala.updateStoneAmount(p2Pits[model.NUMBER_OF_PITS]);
+		for (int i = 0; i < 6; i++) {
+			pits[i].setEnabled(!p1Turn);
+			pits[i].setPitIndex(5 - i);
+			pits[i].updateStoneAmount(p2Pits[5 - i]);
+			System.out.print(" " + p2Pits[5 - i]);
+		}
+
+		int[] p1Pits = model.getP1Pits();
+		player2Mancala.updateStoneAmount(p1Pits[model.NUMBER_OF_PITS]);
+		System.out.println("\n" + p2Pits[model.NUMBER_OF_PITS] + "    \t    " + p1Pits[model.NUMBER_OF_PITS]);
+		for (int i = 6; i < 12; i++) {
+			pits[i].setEnabled(p1Turn);
+			pits[i].setPitIndex(i - 6);
+			pits[i].updateStoneAmount(p1Pits[i - 6]);
+			System.out.print(" " + p1Pits[i - 6]);
+		}
+		System.out.println("\nTurn: " + model.getTurnCount());
+	}
+
+	private void updatePitPositions() {
 		currentStyle.setPlayer1Pits();
 		currentStyle.setPlayer2Pits();
 		for (int i = 0; i < 6; i++) {
-			pits[i].setLabelText("B" + (i + 1));
+			pits[i].setLabelText("B" + (6 - i));
 			pits[i].setLabelColor(currentStyle.getLabelColor());
 			pits[i].setShape(currentStyle.getPlayer1Pits()[i]);
 			pits[i].setBackground(currentStyle.getPieceColor());
+			pits[i].setStyleColor(currentStyle.getPieceColor());
 		}
-
 		for (int i = 6; i < 12; i++) {
 			pits[i].setLabelText("A" + (i - 5));
 			pits[i].setLabelColor(currentStyle.getLabelColor());
 			pits[i].setShape(currentStyle.getPlayer2Pits()[i - 6]);
 			pits[i].setBackground(currentStyle.getPieceColor());
+			pits[i].setStyleColor(currentStyle.getPieceColor());
 		}
 	}
 
-	public void drawPitPositions(Graphics2D g2) {
+	private void drawPitPositions(Graphics2D g2) {
 		this.updatePitPositions();
 		for (int i = 0; i < 6; i++) {
 			g2.draw(pits[i].getShape());
@@ -107,6 +133,6 @@ public class BoardView extends JPanel implements ChangeListener {
 
 	@Override
 	public void stateChanged(ChangeEvent e) {
-
+		updateBoard();
 	}
 }

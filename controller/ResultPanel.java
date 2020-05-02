@@ -15,6 +15,7 @@ import model.MancalaModel;
 import view.StyleButton;
 
 public class ResultPanel extends JPanel implements ChangeListener {
+    private static final long serialVersionUID = 1L;
 
     private MancalaModel model;
     private JLabel mancalaA;
@@ -39,6 +40,7 @@ public class ResultPanel extends JPanel implements ChangeListener {
         });
         quit = new StyleButton("Quit");
         quit.addActionListener(e -> {
+            model.discardGame();
             card.show(p, PanelName.MENU.getName());
         });
 
@@ -62,9 +64,11 @@ public class ResultPanel extends JPanel implements ChangeListener {
         again.setFont(new Font("Serif", Font.BOLD, (int) (fontSize * 0.05)));
         quit.setFont(new Font("Serif", Font.BOLD, (int) (fontSize * 0.05)));
 
-        mancalaA.setText("Mancala 1: " + model.getP1Pits()[model.NUMBER_OF_PITS]);
-        mancalaB.setText("Mancala 2: " + model.getP2Pits()[model.NUMBER_OF_PITS]);
-        result.setText(model.getResult());
+        if (!(model.getTurnCount() < 0) && model.hasEmptyPits()) {
+            result.setText(model.getResult());
+            mancalaA.setText("Mancala A: " + model.getP1Pits()[model.NUMBER_OF_PITS]);
+            mancalaB.setText("Mancala B: " + model.getP2Pits()[model.NUMBER_OF_PITS]);
+        }
     }
 
 }

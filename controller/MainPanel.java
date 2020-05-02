@@ -16,6 +16,7 @@ import javax.swing.event.ChangeListener;
 import view.StyleButton;
 
 public class MainPanel extends JPanel implements ChangeListener {
+    private static final long serialVersionUID = 1L;
 
     private JLabel title;
     private StyleButton play;

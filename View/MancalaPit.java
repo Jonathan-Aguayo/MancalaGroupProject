@@ -2,29 +2,45 @@ package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Shape;
-
-import javax.swing.JComponent;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class MancalaPit extends JPanel {
+	private static final long serialVersionUID = 1L;
+
+	private static final int MAX_CAPACITY = 18;
+
 	private Shape mancalaShape;
-	private JLabel label;
+	private JLabel mancalaLabel;
+	private JLabel remainStoneLabel;
+	private JPanel container;
+	private JLabel totalLabel;
 
 	public MancalaPit() {
-		label = new JLabel();
-		this.add(label);
-	}
+		this.setLayout(new BorderLayout());
 
-	public MancalaPit(Shape shape, String labelText) {
-		mancalaShape = shape;
-		this.setBounds(mancalaShape.getBounds());
-		this.setPreferredSize(new Dimension((int) shape.getBounds().getWidth(), (int) shape.getBounds().getHeight()));
-		label = new JLabel(labelText);
-		this.add(label);
+		mancalaLabel = new JLabel();
+		mancalaLabel.setHorizontalAlignment(JLabel.CENTER);
+
+		container = new JPanel(new GridLayout(0, 3));
+		container.setOpaque(false);
+		remainStoneLabel = new JLabel();
+		remainStoneLabel.setHorizontalAlignment(JLabel.RIGHT);
+
+		JPanel centerPanel = new JPanel(new BorderLayout());
+		centerPanel.setOpaque(false);
+		centerPanel.add(container, BorderLayout.CENTER);
+		centerPanel.add(remainStoneLabel, BorderLayout.SOUTH);
+
+		totalLabel = new JLabel("Total: 0");
+		totalLabel.setHorizontalAlignment(JLabel.CENTER);
+
+		this.add(mancalaLabel, BorderLayout.NORTH);
+		this.add(centerPanel, BorderLayout.CENTER);
+		this.add(totalLabel, BorderLayout.SOUTH);
 	}
 
 	public Shape getShape() {
@@ -32,11 +48,13 @@ public class MancalaPit extends JPanel {
 	}
 
 	public void setLabelColor(Color c) {
-		label.setForeground(c);
+		mancalaLabel.setForeground(c);
+		remainStoneLabel.setForeground(c);
+		totalLabel.setForeground(c);
 	}
 
 	public void setLabelText(String labelText) {
-		label.setText(labelText);
+		mancalaLabel.setText(labelText);
 	}
 
 	public void setShape(Shape s) {
@@ -46,10 +64,29 @@ public class MancalaPit extends JPanel {
 				new Dimension((int) mancalaShape.getBounds().getWidth(), (int) mancalaShape.getBounds().getHeight()));
 	}
 
+	public void updateStoneAmount(int stoneAmount) {
+		totalLabel.setText("Total: " + stoneAmount);
+		if (stoneAmount > MAX_CAPACITY) {
+			remainStoneLabel.setText("+" + (stoneAmount - MAX_CAPACITY));
+			stoneAmount = MAX_CAPACITY;
+		} else {
+			remainStoneLabel.setText("");
+		}
+		int currentAmount = container.getComponentCount();
+		while (currentAmount < stoneAmount) {
+			container.add(new Stone());
+			currentAmount++;
+		}
+		while (currentAmount > stoneAmount) {
+			container.remove(container.getComponentCount() - 1);
+			currentAmount--;
+		}
+		repaint();
+	}
+
 	@Override
 	public Dimension getPreferredSize() {
 		return new Dimension((int) mancalaShape.getBounds().getHeight(), (int) mancalaShape.getBounds().getWidth());
-
 	}
 
 }

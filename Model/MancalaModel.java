@@ -37,6 +37,7 @@ public class MancalaModel {
         listeners = new ArrayList<>();
         styles = new ArrayList<>();
         currentStyleIndex = styles.size();
+        turnCount = -1;
     }
 
     public void setStoneAmount(int n) {
@@ -104,12 +105,13 @@ public class MancalaModel {
      * Initialize a new mancala match. Player1 takes first turn
      */
     public void newGame() {
-
         // Initialize every pits to stoneAmount
         for (int i = 0; i < NUMBER_OF_PITS; i++) {
             p1_Pits[i] = initStoneAmount;
             p2_Pits[i] = initStoneAmount;
         }
+        p1_Pits[NUMBER_OF_PITS] = 0;
+        p2_Pits[NUMBER_OF_PITS] = 0;
         isP1Turn = true;
         turnCount = 1;
         redoCount = 3;
@@ -273,15 +275,21 @@ public class MancalaModel {
             p2_Pits[NUMBER_OF_PITS] += p2_Pits[i];
             p1_Pits[i] = p2_Pits[i] = 0;
         }
-        this.update();
         int result = p1_Pits[NUMBER_OF_PITS] - p2_Pits[NUMBER_OF_PITS];
         if (result > 0) {
-            return "Player1 WIN";
+            return "Player A Win";
         }
         if (result < 0) {
-            return "Player2 WIN";
+            return "Player B Win";
         }
         return "Draw!";
+    }
+
+    public void discardGame() {
+        p1_Pits = new int[NUMBER_OF_PITS + 1];
+        p2_Pits = new int[NUMBER_OF_PITS + 1];
+        turnCount = -1;
+        this.update();
     }
 
     /**
