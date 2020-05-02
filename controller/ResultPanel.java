@@ -40,6 +40,7 @@ public class ResultPanel extends JPanel implements ChangeListener {
         });
         quit = new StyleButton("Quit");
         quit.addActionListener(e -> {
+            model.discardGame();
             card.show(p, PanelName.MENU.getName());
         });
 
