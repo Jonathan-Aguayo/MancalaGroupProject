@@ -10,12 +10,10 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import view.StyleButton;
 
-public class MainPanel extends JPanel implements ChangeListener {
+public class MainPanel extends JPanel {
     private static final long serialVersionUID = 1L;
 
     private JLabel title;
@@ -52,8 +50,7 @@ public class MainPanel extends JPanel implements ChangeListener {
         add(author, BorderLayout.SOUTH);
     }
 
-    @Override
-    public void stateChanged(ChangeEvent e) {
+    public void resizeFont() {
         int fontSize = Math.min(getWidth(), getHeight());
         title.setFont(new Font("Serif", Font.ITALIC, (int) (fontSize * 0.16)));
         play.setFont(new Font("Serif", Font.BOLD, (int) (fontSize * 0.05)));

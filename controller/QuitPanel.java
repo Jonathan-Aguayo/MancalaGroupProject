@@ -8,13 +8,11 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import model.MancalaModel;
 import view.StyleButton;
 
-public class QuitPanel extends JPanel implements ChangeListener {
+public class QuitPanel extends JPanel {
     private static final long serialVersionUID = 1L;
 
     private MancalaModel model;
@@ -49,12 +47,10 @@ public class QuitPanel extends JPanel implements ChangeListener {
         add(buttons, gbc);
     }
 
-    @Override
-    public void stateChanged(ChangeEvent e) {
+    public void resizeFont() {
         int fontSize = Math.min(getWidth(), getHeight());
         label.setFont(new Font("Serif", Font.PLAIN, (int) (fontSize * 0.1)));
         confirm.setFont(new Font("Serif", Font.BOLD, (int) (fontSize * 0.05)));
         cancel.setFont(new Font("Serif", Font.BOLD, (int) (fontSize * 0.05)));
     }
-
 }

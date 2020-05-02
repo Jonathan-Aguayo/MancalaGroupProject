@@ -3,6 +3,7 @@ package view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Shape;
+import java.awt.Font;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
@@ -35,7 +36,7 @@ public class MancalaPit extends JPanel {
 		centerPanel.add(container, BorderLayout.CENTER);
 		centerPanel.add(remainStoneLabel, BorderLayout.SOUTH);
 
-		totalLabel = new JLabel("Total: 0");
+		totalLabel = new JLabel();
 		totalLabel.setHorizontalAlignment(JLabel.CENTER);
 
 		this.add(mancalaLabel, BorderLayout.NORTH);
@@ -51,6 +52,14 @@ public class MancalaPit extends JPanel {
 		mancalaLabel.setForeground(c);
 		remainStoneLabel.setForeground(c);
 		totalLabel.setForeground(c);
+	}
+
+	public void setLabelFont(int w, int h) {
+		int fontSize = Math.min(w, h);
+		Font newFont = new Font("Serif", Font.PLAIN, (int) (fontSize * 0.04));
+		mancalaLabel.setFont(newFont);
+		remainStoneLabel.setFont(newFont);
+		totalLabel.setFont(newFont);
 	}
 
 	public void setLabelText(String labelText) {
@@ -72,12 +81,17 @@ public class MancalaPit extends JPanel {
 		} else {
 			remainStoneLabel.setText("");
 		}
-		int currentAmount = container.getComponentCount();
-		while (currentAmount < stoneAmount) {
-			container.add(new Stone());
-			currentAmount++;
+		int stoneIndex = 0;
+		while (stoneIndex < stoneAmount) {
+			container.add(new Stone(), stoneIndex);
+			stoneIndex++;
 		}
-		while (currentAmount > stoneAmount) {
+		while (stoneIndex < MAX_CAPACITY) {
+			container.add(new JLabel(), stoneIndex);
+			stoneIndex++;
+		}
+		int currentAmount = container.getComponentCount();
+		while (currentAmount > MAX_CAPACITY) {
 			container.remove(container.getComponentCount() - 1);
 			currentAmount--;
 		}

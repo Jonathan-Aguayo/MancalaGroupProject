@@ -3,6 +3,7 @@ package view;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Shape;
+import java.awt.Font;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
@@ -61,6 +62,13 @@ public class Pit extends JPanel {
 		remainStoneLabel.setForeground(c);
 	}
 
+	public void setLabelFont(int w, int h) {
+		int fontSize = Math.min(w, h);
+		Font newFont = new Font("Serif", Font.PLAIN, (int) (fontSize * 0.04));
+		pitLabel.setFont(newFont);
+		remainStoneLabel.setFont(newFont);
+	}
+
 	public void setLabelText(String labelText) {
 		pitLabel.setText(labelText);
 	}
@@ -106,7 +114,15 @@ public class Pit extends JPanel {
 		@Override
 		public void mousePressed(MouseEvent e) {
 			if (enable) {
+				setBackground(styleBackground);
 				model.toMove(pitIndex);
+			}
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			if (enable) {
+				setBackground(new Color(191, 191, 191));
 			}
 		}
 
@@ -115,13 +131,11 @@ public class Pit extends JPanel {
 			if (enable) {
 				setBackground(new Color(191, 191, 191));
 			}
-			repaint();
 		}
 
 		@Override
 		public void mouseExited(MouseEvent e) {
 			setBackground(styleBackground);
-			repaint();
 		}
 	}
 
