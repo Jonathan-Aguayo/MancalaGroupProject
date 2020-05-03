@@ -1,4 +1,4 @@
-public class MancalaTester {
+public class MancalaTest {
     public static void main(String[] args) {
         new controller.Mancala();
     }
